@@ -44,6 +44,21 @@
       border-radius: 5px;
       width: 150px;
     }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .button-container button {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
   </style>
 </head>
 <body>
@@ -53,6 +68,10 @@
     <input type="text" id="name" name="name" required>
     <button type="submit">Submit</button>
   </form>
+  <div class="button-container">
+    <button onclick="window.location.href='/page1'">Go to Page 1</button>
+    <button onclick="window.location.href='/page2'">Go to Page 2</button>
+  </div>
 </body>
 </html>
 
