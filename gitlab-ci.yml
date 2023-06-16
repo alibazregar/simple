@@ -1,0 +1,40 @@
+image: node:latest
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  tags:
+    - docker_based
+  script:
+    - rm -rf node_modules
+    - npm install
+
+test:
+  stage: test
+  tags:
+    - docker_based
+  script:
+    - rm -rf node_modules
+    - npm install 
+    - npm run test
+
+Deploy:
+    stage: deploy
+    tags:
+      - shell_exec
+    script:
+      - docker build -t calculator .
+      - docker run -d $(docker images | sed -n '2p' | awk '{print $3}') -p 3000:80
+
+deploy on liara:
+  stage: deploy
+  tags:
+    - docker_based
+  script:
+    - rm -rf node_modules
+    - npm i -g @liara/cli@3
+    - export http_proxy=http://proxy.liara.ir:6666
+    - liara deploy --app intelligent-hopper-6qnjdwuep --platform=node --api-token $TOKEN --port 3000 --detach
